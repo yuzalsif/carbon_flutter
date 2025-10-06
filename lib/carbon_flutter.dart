@@ -8,7 +8,6 @@
 /// ```
 library carbon_flutter;
 
-// --- Foundation ---
-// Exporting the color definitions so they can be used publicly.
 export 'src/theme/colors.dart';
 export 'src/theme/typography.dart';
+export 'src/theme/spacing.dart';
