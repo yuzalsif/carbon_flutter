@@ -16,3 +16,4 @@ export 'src/theme/theme.dart';
 
 // --- Widgets ---
 export 'src/widgets/c_button.dart';
+export 'src/widgets/c_text_input.dart';

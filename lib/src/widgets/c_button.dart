@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:carbon_flutter/src/theme/colors.dart';
-import 'package:carbon_flutter/src/theme/spacing.dart';
-import 'package:carbon_flutter/src/theme/typography.dart';
+import 'package:carbon_flutter/carbon_flutter.dart';
 
 /// Defines the visual style and semantic purpose of a [CButton].
 enum CButtonType {
