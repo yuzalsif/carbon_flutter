@@ -6,7 +6,7 @@
 /// ```dart
 /// import 'package:carbon_flutter/carbon_flutter.dart';
 /// ```
-library carbon_flutter;
+library;
 
 export 'src/theme/colors.dart';
 export 'src/theme/typography.dart';

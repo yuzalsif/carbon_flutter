@@ -57,8 +57,6 @@ class CTheme {
         onSecondary: CColors.white,
         error: CColors.red60,
         onError: CColors.white,
-        background: scaffoldBackgroundColor,
-        onBackground: primaryTextColor,
         surface: componentBackgroundColor,
         onSurface: primaryTextColor,
       ),
