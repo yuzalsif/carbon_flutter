@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carbon_flutter/src/theme/colors.dart';
 import 'package:carbon_flutter/src/theme/typography.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 /// A class that provides static methods to generate [ThemeData]
@@ -79,6 +80,20 @@ class CTheme {
         color: componentBackgroundColor,
         elevation: 0,
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      ),
+
+      appBarTheme: AppBarTheme(
+        // The AppBar background color should match the component background color.
+        backgroundColor: componentBackgroundColor,
+        // The color for title text and icons in the AppBar.
+        foregroundColor: primaryTextColor,
+        // Carbon headers have no shadow.
+        elevation: 0,
+        // Ensure system UI (like status bar icons) matches the theme.
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarBrightness: isDark ? Brightness.dark : Brightness.light,
+          statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
+        ),
       ),
 
       inputDecorationTheme: InputDecorationTheme(

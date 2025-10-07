@@ -39,8 +39,6 @@ class ExampleHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Carbon Flutter Components'),
-        backgroundColor: CColors.backgroundComponent,
-        elevation: 0,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: CSpacing.medium),
