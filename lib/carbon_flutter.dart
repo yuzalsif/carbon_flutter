@@ -8,6 +8,11 @@
 /// ```
 library;
 
+// --- Foundation ---
 export 'src/theme/colors.dart';
 export 'src/theme/typography.dart';
 export 'src/theme/spacing.dart';
+export 'src/theme/theme.dart';
+
+// --- Widgets ---
+export 'src/widgets/c_button.dart';
