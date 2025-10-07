@@ -47,13 +47,13 @@ class CTheme {
     return ThemeData(
       brightness: isDark ? Brightness.dark : Brightness.light,
       scaffoldBackgroundColor: scaffoldBackgroundColor,
-      primaryColor: CColors.blue60,
+      primaryColor: CColors.primary60,
 
       colorScheme: ColorScheme(
         brightness: isDark ? Brightness.dark : Brightness.light,
-        primary: CColors.blue60,
+        primary: CColors.primary60,
         onPrimary: CColors.white,
-        secondary: CColors.blue60,
+        secondary: CColors.primary60,
         onSecondary: CColors.white,
         error: CColors.red60,
         onError: CColors.white,
@@ -90,7 +90,7 @@ class CTheme {
         focusedBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.zero,
           borderSide: BorderSide(
-            color: CColors.blue60,
+            color: CColors.primary60,
             width: 2.0,
           ), // Carbon focus indicator
         ),

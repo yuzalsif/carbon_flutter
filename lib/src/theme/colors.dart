@@ -4,7 +4,7 @@ import 'package:flutter/painting.dart';
 ///
 /// This is a non-instantiable class that provides static [Color] constants
 /// that align with the IBM Carbon Design System's "Gray 100" theme.
-/// The naming convention (e.g., `blue60`, `gray100`) is taken directly
+/// The naming convention (e.g., `primary60`, `gray100`) is taken directly
 /// from the Carbon color tokens to maintain a shared vocabulary.
 class CColors {
   // This class is not meant to be instantiated.
@@ -16,10 +16,10 @@ class CColors {
 
   // --- Interactive Colors (Primary Actions) ---
   /// The primary interactive color for buttons, links, and highlighted items.
-  static const Color blue60 = Color(0xFF0F62FE);
+  static const Color primary60 = Color(0xFF0F62FE);
 
   /// The hover state for primary interactive elements.
-  static const Color blue70 = Color(0xFF0043CE);
+  static const Color primary70 = Color(0xFF0043CE);
 
   // --- UI Backgrounds ---
   /// The primary background color for the entire application page.

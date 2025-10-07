@@ -59,12 +59,12 @@ class _CButtonState extends State<CButton> {
 
   Color _getBackgroundColor() {
     if (_isDisabled) {
-      return CColors.gray30;
+      return CColors.gray10;
     }
     if (_isPressed) {
       switch (widget.type) {
         case CButtonType.primary:
-          return CColors.blue70;
+          return CColors.primary70;
         case CButtonType.secondary:
           return CColors.gray20;
         case CButtonType.danger:
@@ -78,7 +78,7 @@ class _CButtonState extends State<CButton> {
     if (_isHovered) {
       switch (widget.type) {
         case CButtonType.primary:
-          return CColors.blue70.withValues(alpha: 0.9);
+          return CColors.primary70.withValues(alpha: 0.9);
         case CButtonType.secondary:
           return CColors.gray10.withValues(alpha: 0.8);
         case CButtonType.danger:
@@ -90,7 +90,7 @@ class _CButtonState extends State<CButton> {
     // Default background colors
     switch (widget.type) {
       case CButtonType.primary:
-        return CColors.blue60;
+        return CColors.primary60;
       case CButtonType.danger:
         return CColors.red60;
       case CButtonType.secondary:
@@ -109,13 +109,13 @@ class _CButtonState extends State<CButton> {
         return CColors.textOnColor;
       case CButtonType.secondary:
       case CButtonType.ghost:
-        return CColors.blue60;
+        return CColors.primary60;
     }
   }
 
   BorderSide _getBorderSide() {
     if (widget.type == CButtonType.secondary && !_isDisabled) {
-      return const BorderSide(color: CColors.blue60, width: 1.0);
+      return const BorderSide(color: CColors.primary60, width: 1.0);
     }
     return BorderSide.none;
   }
