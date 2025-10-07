@@ -1,3 +1,4 @@
+import 'package:example/text_input_example.dart';
 import 'package:flutter/material.dart';
 import 'package:carbon_flutter/carbon_flutter.dart';
 
@@ -14,9 +15,10 @@ class CarbonExampleApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Carbon Flutter Example',
+      debugShowCheckedModeBanner: false,
       theme: CTheme.lightTheme,
       darkTheme: CTheme.darkTheme,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.dark,
       home: const ExampleHomePage(),
     );
   }
@@ -36,7 +38,7 @@ class ExampleHomePage extends StatelessWidget {
       // Use a ListView to allow scrolling as we add more components
       body: ListView(
         padding: const EdgeInsets.all(CSpacing.medium),
-        children: const [ButtonExample()],
+        children: const [ButtonExample(), TextInputExample()],
       ),
     );
   }

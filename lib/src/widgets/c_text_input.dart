@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:carbon_flutter/carbon_flutter.dart';
+import 'package:flutter/services.dart';
 
 /// A Carbon Design System compliant text input field.
 ///
@@ -17,6 +18,8 @@ class CTextInput extends StatelessWidget {
     this.errorText,
     this.onChanged,
     this.obscureText = false,
+    this.inputFormatters,
+    this.keyboardType,
   });
 
   /// The text that is displayed above the input field.
@@ -42,6 +45,12 @@ class CTextInput extends StatelessWidget {
 
   /// Whether to hide the text being edited (e.g., for passwords).
   final bool obscureText;
+
+  /// KeyboardType of the Text input
+  final TextInputType? keyboardType;
+
+  /// Optional input validation and formatting rules.
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +80,8 @@ class CTextInput extends StatelessWidget {
           onChanged: onChanged,
           obscureText: obscureText,
           style: CTypography.bodyCompact01, // Style for the text the user types
+          keyboardType: keyboardType,
+          inputFormatters: inputFormatters,
           decoration: InputDecoration(
             hintText: hintText,
             // The inputDecorationTheme from CTheme handles the rest of the styling!

@@ -19,22 +19,28 @@ class CTheme {
   }
 
   static ThemeData _buildTheme({required bool isDark}) {
-    // Define colors based on the theme mode (light/dark) using semantic names.
     final Color scaffoldBackgroundColor = isDark
         ? CColors.backgroundInverse
         : CColors.background;
     final Color componentBackgroundColor = isDark
         ? CColors.backgroundComponentInverse
         : CColors.backgroundComponent;
+
     final Color primaryTextColor = isDark
         ? CColors.textPrimaryInverse
         : CColors.textPrimary;
     final Color secondaryTextColor = isDark
-        ? CColors.textSecondary
-        : CColors
-              .textSecondary; 
-    final Color hintTextColor = CColors.textPlaceholder;
-    final Color borderColor = CColors.borderStrong;
+        ? CColors.textSecondaryInverse
+        : CColors.textSecondary;
+    final Color hintTextColor = isDark
+        ? CColors.textPlaceholderInverse
+        : CColors.textPlaceholder;
+    final Color borderColor = isDark
+        ? CColors.borderInverse
+        : CColors.borderStrong;
+    final Color disabledTextColor = isDark
+        ? CColors.textDisabledInverse
+        : CColors.textDisabled;
 
     // Build the base TextTheme using GoogleFonts and apply colors.
     final textTheme = GoogleFonts.ibmPlexSansTextTheme(
@@ -51,6 +57,7 @@ class CTheme {
       brightness: isDark ? Brightness.dark : Brightness.light,
       scaffoldBackgroundColor: scaffoldBackgroundColor,
       primaryColor: CColors.primary,
+      disabledColor: disabledTextColor,
 
       colorScheme: ColorScheme(
         brightness: isDark ? Brightness.dark : Brightness.light,
@@ -98,6 +105,13 @@ class CTheme {
         errorBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.zero,
           borderSide: BorderSide(color: CColors.supportError, width: 1.0),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.zero,
+          borderSide: BorderSide(
+            color: borderColor.withValues(alpha: 0.5),
+            width: 1.0,
+          ),
         ),
       ),
     );

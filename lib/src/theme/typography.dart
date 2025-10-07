@@ -1,11 +1,13 @@
 import 'package:flutter/painting.dart';
-import 'package:carbon_flutter/src/theme/colors.dart';
 
 /// Defines the text styles for the Carbon Flutter theme.
 ///
 /// This is a non-instantiable class that provides static [TextStyle] constants
 /// that align with the IBM Carbon Design System's typographic scale. It uses
 /// the 'IBMPlexSans' font family.
+///
+/// NOTE: These text styles DO NOT define a color. The color is applied
+/// by the CTheme (light or dark) to ensure proper contrast.
 class CTypography {
   // This class is not meant to be instantiated.
   CTypography._();
@@ -21,7 +23,6 @@ class CTypography {
     fontFamily: fontFamily,
     fontSize: 12,
     fontWeight: FontWeight.w400,
-    color: CColors.textSecondary,
   );
 
   /// For helper text, and smaller body copy.
@@ -30,7 +31,6 @@ class CTypography {
     fontFamily: fontFamily,
     fontSize: 14,
     fontWeight: FontWeight.w400,
-    color: CColors.textPrimary,
   );
 
   /// For primary body copy.
@@ -39,7 +39,6 @@ class CTypography {
     fontFamily: fontFamily,
     fontSize: 16,
     fontWeight: FontWeight.w400,
-    color: CColors.textPrimary,
   );
 
   /// For subtitles, and medium-sized headings.
@@ -48,7 +47,6 @@ class CTypography {
     fontFamily: fontFamily,
     fontSize: 20,
     fontWeight: FontWeight.w400,
-    color: CColors.textPrimary,
   );
 
   /// For large, impactful headings.
@@ -57,7 +55,6 @@ class CTypography {
     fontFamily: fontFamily,
     fontSize: 28,
     fontWeight: FontWeight.w600,
-    color: CColors.textPrimary,
   );
 
   /// Used for button labels.
