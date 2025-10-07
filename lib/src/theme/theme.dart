@@ -19,19 +19,22 @@ class CTheme {
   }
 
   static ThemeData _buildTheme({required bool isDark}) {
-    // Define colors based on the theme mode (light/dark).
+    // Define colors based on the theme mode (light/dark) using semantic names.
     final Color scaffoldBackgroundColor = isDark
-        ? CColors.gray100Inverted
-        : CColors.gray100;
+        ? CColors.backgroundInverse
+        : CColors.background;
     final Color componentBackgroundColor = isDark
-        ? CColors.gray90Inverted
-        : CColors.gray10;
-    final Color primaryTextColor = isDark ? CColors.white : CColors.textPrimary;
+        ? CColors.backgroundComponentInverse
+        : CColors.backgroundComponent;
+    final Color primaryTextColor = isDark
+        ? CColors.textPrimaryInverse
+        : CColors.textPrimary;
     final Color secondaryTextColor = isDark
-        ? CColors.gray30
-        : CColors.textSecondary;
+        ? CColors.textSecondary
+        : CColors
+              .textSecondary; 
     final Color hintTextColor = CColors.textPlaceholder;
-    final Color borderColor = isDark ? CColors.gray30 : CColors.gray30;
+    final Color borderColor = CColors.borderStrong;
 
     // Build the base TextTheme using GoogleFonts and apply colors.
     final textTheme = GoogleFonts.ibmPlexSansTextTheme(
@@ -47,23 +50,24 @@ class CTheme {
     return ThemeData(
       brightness: isDark ? Brightness.dark : Brightness.light,
       scaffoldBackgroundColor: scaffoldBackgroundColor,
-      primaryColor: CColors.primary60,
+      primaryColor: CColors.primary,
 
       colorScheme: ColorScheme(
         brightness: isDark ? Brightness.dark : Brightness.light,
-        primary: CColors.primary60,
-        onPrimary: CColors.white,
-        secondary: CColors.primary60,
-        onSecondary: CColors.white,
-        error: CColors.red60,
-        onError: CColors.white,
+        primary: CColors.primary,
+        onPrimary: CColors.textOnColor,
+        secondary: CColors.primary,
+        onSecondary: CColors.textOnColor,
+        error: CColors.supportError,
+        onError: CColors.textOnColor,
+        background: scaffoldBackgroundColor,
+        onBackground: primaryTextColor,
         surface: componentBackgroundColor,
         onSurface: primaryTextColor,
       ),
 
       textTheme: textTheme,
 
-      // Define default styles for common widgets.
       cardTheme: CardThemeData(
         color: componentBackgroundColor,
         elevation: 0,
@@ -89,14 +93,11 @@ class CTheme {
         ),
         focusedBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.zero,
-          borderSide: BorderSide(
-            color: CColors.primary60,
-            width: 2.0,
-          ), // Carbon focus indicator
+          borderSide: BorderSide(color: CColors.primary, width: 2.0),
         ),
         errorBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.zero,
-          borderSide: BorderSide(color: CColors.red60, width: 1.0),
+          borderSide: BorderSide(color: CColors.supportError, width: 1.0),
         ),
       ),
     );

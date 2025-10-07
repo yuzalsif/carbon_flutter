@@ -30,7 +30,7 @@ class ExampleHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Carbon Flutter Components'),
-        backgroundColor: CColors.gray10, // Using our theme colors
+        backgroundColor: CColors.backgroundComponent, // Using our theme colors
         elevation: 0,
       ),
       // Use a ListView to allow scrolling as we add more components

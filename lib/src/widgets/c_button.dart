@@ -59,40 +59,40 @@ class _CButtonState extends State<CButton> {
 
   Color _getBackgroundColor() {
     if (_isDisabled) {
-      return CColors.gray10;
+      // Use a neutral disabled color for the background.
+      return CColors.borderStrong.withValues(alpha: 0.5);
     }
     if (_isPressed) {
       switch (widget.type) {
         case CButtonType.primary:
-          return CColors.primary70;
+          return CColors.primaryHover;
         case CButtonType.secondary:
-          return CColors.gray20;
+          return CColors.borderSubtle;
         case CButtonType.danger:
-          // Carbon doesn't define a specific danger-pressed color,
-          // so we can darken the base red color or use a hover effect.
-          return CColors.red60.withValues(alpha: 0.8);
+          return CColors.supportError.withValues(alpha: 0.8);
         case CButtonType.ghost:
-          return CColors.gray20;
+          return CColors.borderSubtle;
       }
     }
     if (_isHovered) {
       switch (widget.type) {
         case CButtonType.primary:
-          return CColors.primary70.withValues(alpha: 0.9);
+          return CColors.primaryHover.withValues(alpha: 0.9);
         case CButtonType.secondary:
-          return CColors.gray10.withValues(alpha: 0.8);
+          // A subtle background appears on hover for secondary.
+          return CColors.backgroundComponent.withValues(alpha: 0.8);
         case CButtonType.danger:
-          return CColors.red60.withValues(alpha: 0.9);
+          return CColors.supportError.withValues(alpha: 0.9);
         case CButtonType.ghost:
-          return CColors.gray20.withValues(alpha: 0.8);
+          return CColors.borderSubtle.withValues(alpha: 0.8);
       }
     }
     // Default background colors
     switch (widget.type) {
       case CButtonType.primary:
-        return CColors.primary60;
+        return CColors.primary;
       case CButtonType.danger:
-        return CColors.red60;
+        return CColors.supportError;
       case CButtonType.secondary:
       case CButtonType.ghost:
         return Colors.transparent;
@@ -109,13 +109,14 @@ class _CButtonState extends State<CButton> {
         return CColors.textOnColor;
       case CButtonType.secondary:
       case CButtonType.ghost:
-        return CColors.primary60;
+        return CColors.primary;
     }
   }
 
   BorderSide _getBorderSide() {
+    // Secondary button has a border.
     if (widget.type == CButtonType.secondary && !_isDisabled) {
-      return const BorderSide(color: CColors.primary60, width: 1.0);
+      return const BorderSide(color: CColors.primary, width: 1.0);
     }
     return BorderSide.none;
   }
@@ -137,7 +138,7 @@ class _CButtonState extends State<CButton> {
         onTap: _isDisabled ? null : widget.onPressed,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 100),
-          height: 48.0, // Carbon standard height
+          height: 48.0,
           padding: const EdgeInsets.symmetric(horizontal: CSpacing.medium),
           decoration: BoxDecoration(
             color: _getBackgroundColor(),

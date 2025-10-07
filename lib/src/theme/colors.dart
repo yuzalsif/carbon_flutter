@@ -6,65 +6,44 @@ import 'package:flutter/painting.dart';
 /// that align with the IBM Carbon Design System's "Gray 100" theme.
 /// The naming convention (e.g., `primary60`, `gray100`) is taken directly
 /// from the Carbon color tokens to maintain a shared vocabulary.
+
 class CColors {
-  // This class is not meant to be instantiated.
   CColors._();
 
-  // --- Core Palette ---
+  // --- Core Palette (Literal Colors) ---
   static const Color black = Color(0xFF000000);
   static const Color white = Color(0xFFFFFFFF);
 
-  // --- Interactive Colors (Primary Actions) ---
-  /// The primary interactive color for buttons, links, and highlighted items.
-  static const Color primary60 = Color(0xFF0F62FE);
+  // --- Semantic Colors (Role-Based Naming) ---
 
-  /// The hover state for primary interactive elements.
-  static const Color primary70 = Color(0xFF0043CE);
+  // --- Interactive Colors ---
+  /// The primary interactive color for buttons, links, etc. (Carbon: blue60)
+  static const Color primary = Color(0xFF0F62FE);
 
-  // --- UI Backgrounds ---
-  /// The primary background color for the entire application page.
-  static const Color gray100 = Color(0xFFF4F4F4);
+  /// The hover state for primary interactive elements. (Carbon: blue70)
+  static const Color primaryHover = Color(0xFF0043CE);
 
-  /// The background color for UI components like cards, modals, and input fields.
-  static const Color gray10 = Color(0xFFFFFFFF);
+  // --- Background Colors ---
+  static const Color background = Color(0xFFF4F4F4);
+  static const Color backgroundInverse = Color(0xFF161616);
+  static const Color backgroundComponent = Color(0xFFFFFFFF);
+  static const Color backgroundComponentInverse = Color(0xFF262626);
 
-  // --- UI Borders & Separators ---
-  /// Used for subtle borders on components like text inputs.
-  static const Color gray30 = Color(0xFFC6C6C6);
+  // --- Border Colors ---
+  static const Color borderSubtle = Color(0xFFE0E0E0);
+  static const Color borderStrong = Color(0xFFC6C6C6);
 
-  /// Used for dividers and rules.
-  static const Color gray20 = Color(0xFFE0E0E0);
-
-  // --- Text & Icons ---
-  /// For primary text, headings, and important content.
+  // --- Text & Icon Colors ---
   static const Color textPrimary = Color(0xFF161616);
-
-  /// For secondary text, descriptions, and helper text.
+  static const Color textPrimaryInverse = Color(0xFFF4F4F4);
   static const Color textSecondary = Color(0xFF525252);
-
-  /// For placeholder text in input fields.
   static const Color textPlaceholder = Color(0xFFA8A8A8);
-
-  /// Text on top of colored backgrounds (e.g., on a primary button).
   static const Color textOnColor = Color(0xFFFFFFFF);
-
-  /// For disabled text and components.
   static const Color textDisabled = Color(0xFFC6C6C6);
 
-  // --- Support Colors (Feedback & Status) ---
-  /// For destructive actions, errors, and validation messages.
-  static const Color red60 = Color(0xFFDA1E28);
-
-  /// For success states and positive feedback.
-  static const Color green50 = Color(0xFF24A148);
-
-  /// For warnings and cautionary messages.
-  static const Color yellow30 = Color(0xFFF1C21B);
-
-  /// For informational messages.
-  static const Color blue50 = Color(0xFF3D70B2);
-
-  static const Color gray100Inverted = Color(0xFF161616);
-
-  static const Color gray90Inverted = Color(0xFF262626);
+  // --- Support Colors ---
+  static const Color supportError = Color(0xFFDA1E28);
+  static const Color supportSuccess = Color(0xFF24A148);
+  static const Color supportWarning = Color(0xFFF1C21B);
+  static const Color supportInfo = Color(0xFF3D70B2);
 }
