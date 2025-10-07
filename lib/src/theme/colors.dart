@@ -63,4 +63,8 @@ class CColors {
 
   /// For informational messages.
   static const Color blue50 = Color(0xFF3D70B2);
+
+  static const Color gray100Inverted = Color(0xFF161616);
+
+  static const Color gray90Inverted = Color(0xFF262626);
 }
