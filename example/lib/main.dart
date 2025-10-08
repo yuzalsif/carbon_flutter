@@ -44,6 +44,7 @@ class CarbonExampleApp extends StatelessWidget {
       valueListenable: themeNotifier,
       builder: (_, mode, __) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Carbon Flutter Example',
           theme: CTheme.lightTheme,
           darkTheme: CTheme.darkTheme,
