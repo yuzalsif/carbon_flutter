@@ -1,5 +1,7 @@
 import 'package:example/screens/accordion_example.dart';
 import 'package:example/screens/breadcumb_example.dart' show BreadcrumbExample;
+import 'package:example/screens/link_example.dart';
+import 'package:example/screens/radio_button_example.dart';
 import 'package:example/screens/snackbar_example.dart';
 import 'package:example/screens/text_input_example.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +67,8 @@ class ExampleHomePage extends StatelessWidget {
           SnackbarExample(),
           AccordionExample(),
           BreadcrumbExample(),
+          LinkExample(),
+          RadioButtonExample(),
         ],
       ),
     );
