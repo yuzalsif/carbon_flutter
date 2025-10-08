@@ -1,11 +1,11 @@
-import 'package:example/accordion_example.dart';
-import 'package:example/breadcumb_example.dart' show BreadcrumbExample;
-import 'package:example/snackbar_example.dart';
-import 'package:example/text_input_example.dart';
+import 'package:example/screens/accordion_example.dart';
+import 'package:example/screens/breadcumb_example.dart' show BreadcrumbExample;
+import 'package:example/screens/snackbar_example.dart';
+import 'package:example/screens/text_input_example.dart';
 import 'package:flutter/material.dart';
 import 'package:carbon_flutter/carbon_flutter.dart';
 
-import 'button_examples.dart' show ButtonExample;
+import 'screens/button_examples.dart' show ButtonExample;
 
 final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.system);
 
