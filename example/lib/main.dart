@@ -1,3 +1,4 @@
+import 'package:example/snackbar_example.dart';
 import 'package:example/text_input_example.dart';
 import 'package:flutter/material.dart';
 import 'package:carbon_flutter/carbon_flutter.dart';
@@ -22,7 +23,7 @@ class CarbonExampleApp extends StatelessWidget {
           title: 'Carbon Flutter Example',
           theme: CTheme.lightTheme,
           darkTheme: CTheme.darkTheme,
-          themeMode: mode, 
+          themeMode: mode,
           home: const ExampleHomePage(),
         );
       },
@@ -59,6 +60,7 @@ class ExampleHomePage extends StatelessWidget {
         children: const [
           ButtonExample(),
           TextInputExample(),
+          SnackbarExample(),
         ],
       ),
     );

@@ -18,3 +18,4 @@ export 'src/theme/theme.dart';
 export 'src/widgets/c_button.dart';
 export 'src/widgets/c_text_input.dart';
 export 'src/widgets/c_toggle.dart';
+export 'src/widgets/c_snackbar.dart';

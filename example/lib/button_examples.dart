@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carbon_flutter/carbon_flutter.dart';
 
-
 /// A widget that showcases the different types and states of [CButton].
 class ButtonExample extends StatelessWidget {
   const ButtonExample({super.key});
@@ -79,8 +78,6 @@ class ButtonExample extends StatelessWidget {
 
   // Helper method to show feedback
   void _showSnackbar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message), duration: const Duration(seconds: 1)),
-    );
+    CSnackbar.show(context, title: message);
   }
 }
