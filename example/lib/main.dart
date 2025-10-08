@@ -1,9 +1,29 @@
 import 'package:example/screens/accordion_example.dart';
 import 'package:example/screens/breadcumb_example.dart' show BreadcrumbExample;
+import 'package:example/screens/code_snippet_example.dart';
+import 'package:example/screens/content_switcher_example.dart';
+import 'package:example/screens/data_table_example.dart';
+import 'package:example/screens/date_picker_example.dart';
+import 'package:example/screens/dropdown_example.dart';
+import 'package:example/screens/file_uploader_example.dart';
+import 'package:example/screens/inline_loading_example.dart';
 import 'package:example/screens/link_example.dart';
+import 'package:example/screens/list_example.dart';
+import 'package:example/screens/loading_example.dart';
+import 'package:example/screens/modal_example.dart';
+import 'package:example/screens/multiselect_example.dart';
+import 'package:example/screens/number_input_example.dart';
+import 'package:example/screens/pagination_example.dart';
+import 'package:example/screens/progress_indicator_example.dart';
 import 'package:example/screens/radio_button_example.dart';
+import 'package:example/screens/search_example.dart';
+import 'package:example/screens/slider_example.dart';
 import 'package:example/screens/snackbar_example.dart';
+import 'package:example/screens/tabs_example.dart';
+import 'package:example/screens/tag_example.dart';
 import 'package:example/screens/text_input_example.dart';
+import 'package:example/screens/tile_example.dart';
+import 'package:example/screens/tooltip_example.dart';
 import 'package:flutter/material.dart';
 import 'package:carbon_flutter/carbon_flutter.dart';
 
@@ -69,6 +89,26 @@ class ExampleHomePage extends StatelessWidget {
           BreadcrumbExample(),
           LinkExample(),
           RadioButtonExample(),
+          LoadingExample(),
+          InlineLoadingExample(),
+          DropdownExample(),
+          ModalExample(),
+          TabsExample(),
+          TagExample(),
+          SliderExample(),
+          ProgressIndicatorExample(),
+          SearchExample(),
+          TileExample(),
+          TooltipExample(),
+          NumberInputExample(),
+          DataTableExample(),
+          CodeSnippetExample(),
+          ContentSwitcherExample(),
+          DatePickerExample(),
+          FileUploaderExample(),
+          ListExample(),
+          MultiselectExample(),
+          PaginationExample(),
         ],
       ),
     );
