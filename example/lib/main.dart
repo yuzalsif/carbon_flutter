@@ -1,5 +1,6 @@
 import 'package:example/screens/accordion_example.dart';
 import 'package:example/screens/breadcumb_example.dart' show BreadcrumbExample;
+import 'package:example/screens/checkbox_example.dart';
 import 'package:example/screens/code_snippet_example.dart';
 import 'package:example/screens/content_switcher_example.dart';
 import 'package:example/screens/data_table_example.dart';
@@ -132,6 +133,8 @@ class ExampleHomePage extends StatelessWidget {
           MultiselectExample(),
           SizedBox(height: CSpacing.xLarge),
           PaginationExample(),
+          SizedBox(height: CSpacing.xLarge),
+          CheckboxExample(),
         ],
       ),
     );

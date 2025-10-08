@@ -1,39 +1,125 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Carbon Flutter
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+A Flutter implementation of the IBM Carbon Design System.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+This package provides a comprehensive set of widgets, themes, and design tokens to build beautiful and consistent Flutter applications that adhere to the Carbon visual language. It is designed to be modular, themeable, and easy to use.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- **Consistent Theming:** Full support for both light and dark modes out of the box.
+- **Design Tokens:** Pre-defined colors, typography, and spacing that align with the Carbon Design System.
+- **Comprehensive Component Library:** A wide array of widgets built from the ground up for a native Flutter experience.
+- **Detailed Example App:** A complete showcase of every component in all its variations, serving as live documentation.
 
-## Getting started
+## Getting Started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+### 1. Add Dependency
 
-## Usage
+To use this package in your project, add it to your `pubspec.yaml`. If you are using it as a local package during development:
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```yaml
+dependencies:
+  carbon_flutter:
+    path: ../carbon_flutter # Adjust the path to your local package
 ```
 
-## Additional information
+### 2. Apply the Theme
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+In your main application file, import the library and apply the CTheme to your MaterialApp.
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:carbon_flutter/carbon_flutter.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'My Carbon App',
+      theme: CTheme.lightTheme,
+      darkTheme: CTheme.darkTheme,
+      themeMode: ThemeMode.system, // Or ThemeMode.light / ThemeMode.dark
+      home: MyHomePage(),
+    );
+  }
+}
+```
+
+### 3. Use the Components
+
+You can now use any of the Carbon components throughout your application.
+
+```dart
+import 'package:carbon_flutter/carbon_flutter.dart';
+
+class MyHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Welcome')),
+      body: Padding(
+        padding: const EdgeInsets.all(CSpacing.medium),
+        child: Column(
+          children: [
+            CTextInput(labelText: 'Username'),
+            const SizedBox(height: CSpacing.medium),
+            CButton(
+              label: 'Submit',
+              onPressed: () {
+                CSnackbar.show(context, title: 'Form submitted!');
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+## Implemented Components
+
+This library includes the following components, designed and built to match the Carbon Design System specifications:
+
+- **Actions & Inputs:**
+  - `CButton`
+  - `CCheckbox`
+  - `CDatePicker`
+  - `CDropdown`
+  - `CFileUploader`
+  - `CLink`
+  - `CMultiselect`
+  - `CNumberInput`
+  - `CRadioButtonGroup`
+  - `CSearch`
+  - `CSlider`
+  - `CTextInput`
+  - `CToggle`
+
+- **Navigation:**
+  - `CBreadcrumb`
+  - `CContentSwitcher`
+  - `CPagination`
+  - `CTabs`
+
+- **Feedback & Status:**
+  - `CInlineLoading`
+  - `CLoading`
+  - `CProgressIndicator`
+  - `CSnackbar` (Toast Notification)
+  - `CTooltip`
+
+- **Content & Data Display:**
+  - `CAccordion`
+  - `CCodeSnippet`
+  - `CContainedList`
+  - `CDataTable`
+  - `CModal`
+  - `CTag`
+  - `CTile` (Clickable & Expandable)
+
+
+ ###  Contributing
+  Contributions are welcome! Please feel free to open an issue or submit a pull request.
