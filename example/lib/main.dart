@@ -1,3 +1,5 @@
+import 'package:example/accordion_example.dart';
+import 'package:example/breadcumb_example.dart' show BreadcrumbExample;
 import 'package:example/snackbar_example.dart';
 import 'package:example/text_input_example.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +63,8 @@ class ExampleHomePage extends StatelessWidget {
           ButtonExample(),
           TextInputExample(),
           SnackbarExample(),
+          AccordionExample(),
+          BreadcrumbExample(),
         ],
       ),
     );
