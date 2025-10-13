@@ -57,7 +57,7 @@ class _CDataTableState extends State<CDataTable> {
       child: DataTable(
         sortColumnIndex: _sortColumnIndex,
         sortAscending: _sortAscending,
-        headingRowColor: MaterialStateProperty.all(CColors.backgroundComponent),
+        headingRowColor: WidgetStateProperty.all(CColors.backgroundComponent),
         columns: widget.columns.map((col) {
           return DataColumn(
             label: Text(col.label, style: CTypography.label01),
@@ -67,12 +67,7 @@ class _CDataTableState extends State<CDataTable> {
         rows: _sortedRows.map((row) {
           return DataRow(
             cells: widget.columns.map((col) {
-              return DataCell(
-                Text(
-                  row[col.key]?.toString() ?? '',
-                  style: CTypography.bodyCompact01,
-                ),
-              );
+              return DataCell(row[col.key]);
             }).toList(),
           );
         }).toList(),
