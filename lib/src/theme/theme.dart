@@ -105,24 +105,29 @@ class CTheme {
         ),
         labelStyle: CTypography.label01.copyWith(color: secondaryTextColor),
         hintStyle: CTypography.bodyCompact01.copyWith(color: hintTextColor),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.zero,
-          borderSide: BorderSide(color: borderColor, width: 1.0),
+
+        border: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: borderColor.withValues(alpha: 0.8),
+            width: 1.0,
+          ),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.zero,
-          borderSide: BorderSide(color: borderColor, width: 1.0),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: borderColor.withValues(alpha: 0.8),
+            width: 1.0,
+          ),
         ),
-        focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.zero,
+        // The focused border becomes a thicker, primary-colored line.
+        focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: CColors.primary, width: 2.0),
         ),
-        errorBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.zero,
+        // The error border uses the error color.
+        errorBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: CColors.supportError, width: 1.0),
         ),
-        disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.zero,
+        // The disabled border is a lighter, subtle line.
+        disabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
             color: borderColor.withValues(alpha: 0.5),
             width: 1.0,
