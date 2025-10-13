@@ -15,7 +15,7 @@ class CDropdown<T> extends StatelessWidget {
     super.key,
     required this.labelText,
     required this.items,
-    required this.value,
+    this.value,
     required this.onChanged,
     this.hintText,
     this.enabled = true,
@@ -24,7 +24,7 @@ class CDropdown<T> extends StatelessWidget {
   final String labelText;
   final String? hintText;
   final List<CDropdownItem<T>> items;
-  final T value;
+  final T? value;
   final ValueChanged<T?> onChanged;
   final bool enabled;
 
@@ -45,7 +45,7 @@ class CDropdown<T> extends StatelessWidget {
         ),
         const SizedBox(height: CSpacing.small),
         DropdownButtonFormField<T>(
-          value: value,
+          initialValue: value,
           items: items.map((item) {
             return DropdownMenuItem<T>(
               value: item.value,
