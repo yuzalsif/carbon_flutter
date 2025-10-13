@@ -12,10 +12,16 @@ class CDataColumn {
 ///
 /// This is a foundational implementation with client-side sorting.
 class CDataTable extends StatefulWidget {
-  const CDataTable({super.key, required this.columns, required this.rows});
+  const CDataTable({
+    super.key,
+    required this.columns,
+    required this.rows,
+    this.minWidth,
+  });
 
   final List<CDataColumn> columns;
   final List<Map<String, dynamic>> rows;
+  final double? minWidth;
 
   @override
   State<CDataTable> createState() => _CDataTableState();
@@ -54,23 +60,26 @@ class _CDataTableState extends State<CDataTable> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: DataTable(
-        sortColumnIndex: _sortColumnIndex,
-        sortAscending: _sortAscending,
-        headingRowColor: WidgetStateProperty.all(CColors.backgroundComponent),
-        columns: widget.columns.map((col) {
-          return DataColumn(
-            label: Text(col.label, style: CTypography.label01),
-            onSort: (index, ascending) => _sort(index, ascending),
-          );
-        }).toList(),
-        rows: _sortedRows.map((row) {
-          return DataRow(
-            cells: widget.columns.map((col) {
-              return DataCell(row[col.key]);
-            }).toList(),
-          );
-        }).toList(),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minWidth: widget.minWidth ?? 0.0),
+        child: DataTable(
+          sortColumnIndex: _sortColumnIndex,
+          sortAscending: _sortAscending,
+          headingRowColor: WidgetStateProperty.all(CColors.backgroundComponent),
+          columns: widget.columns.map((col) {
+            return DataColumn(
+              label: Text(col.label, style: CTypography.label01),
+              onSort: (index, ascending) => _sort(index, ascending),
+            );
+          }).toList(),
+          rows: _sortedRows.map((row) {
+            return DataRow(
+              cells: widget.columns.map((col) {
+                return DataCell(row[col.key]);
+              }).toList(),
+            );
+          }).toList(),
+        ),
       ),
     );
   }
