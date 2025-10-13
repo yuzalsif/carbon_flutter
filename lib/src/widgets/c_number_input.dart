@@ -146,7 +146,7 @@ class _CNumberInputState extends State<CNumberInput> {
     required VoidCallback? onPressed,
   }) {
     return SizedBox(
-      width: 34,
+      width: 56,
       height: 23, // Half of the text field's inner height
       child: CButton(
         icon: Icon(icon),
