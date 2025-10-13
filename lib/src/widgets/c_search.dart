@@ -5,14 +5,14 @@ import 'package:carbon_flutter/carbon_flutter.dart';
 class CSearch extends StatefulWidget {
   const CSearch({
     super.key,
-    this.labelText = 'Search',
+    this.labelText,
     this.hintText,
     this.onChanged,
     this.onSubmitted,
     this.enabled = true,
   });
 
-  final String labelText;
+  final String? labelText;
   final String? hintText;
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSubmitted;
@@ -51,7 +51,7 @@ class _CSearchState extends State<CSearch> {
   @override
   Widget build(BuildContext context) {
     return CTextInput(
-      labelText: widget.labelText,
+      labelText: widget.labelText ?? "",
       controller: _controller,
       hintText: widget.hintText,
       enabled: widget.enabled,
