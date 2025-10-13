@@ -32,7 +32,7 @@ class CTag extends StatelessWidget {
       case CTagColor.purple:
         return const Color(0xFFE2D3FF);
       case CTagColor.blue:
-        return const Color(0xFFA6C8FF);
+        return const Color(0xFFA6C8FF).withValues(alpha: .4);
       case CTagColor.cyan:
         return const Color(0xFF9EF0F0);
       case CTagColor.teal:
@@ -49,8 +49,12 @@ class CTag extends StatelessWidget {
   }
 
   Color _getTextColor() {
-    // Most tags use dark text for accessibility.
-    return const Color(0xFF161616);
+    switch (color) {
+      case CTagColor.blue:
+        return Color.fromARGB(255, 42, 118, 239);
+      default:
+        return const Color(0xFF161616);
+    }
   }
 
   @override
@@ -68,7 +72,7 @@ class CTag extends StatelessWidget {
         label,
         style: CTypography.label01.copyWith(
           color: _getTextColor(),
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.normal,
         ),
       ),
     );
