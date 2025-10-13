@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:carbon_flutter/carbon_flutter.dart';
 
-/// A Carbon Design System compliant Number Input with stepper controls.
 class CNumberInput extends StatefulWidget {
   const CNumberInput({
     super.key,
-    required this.labelText,
+    this.labelText = '',
     required this.value,
     required this.onChanged,
     this.min = 0,
     this.max = 100,
     this.step = 1,
     this.enabled = true,
+    this.onIncrement,
+    this.onDecrement,
+    this.onInputTap,
   });
 
   final String labelText;
@@ -22,6 +24,18 @@ class CNumberInput extends StatefulWidget {
   final num max;
   final num step;
   final bool enabled;
+
+  /// A custom callback for the increment (+) button.
+  /// If provided, this overrides the default `value + step` logic.
+  final VoidCallback? onIncrement;
+
+  /// A custom callback for the decrement (-) button.
+  /// If provided, this overrides the default `value - step` logic.
+  final VoidCallback? onDecrement;
+
+  /// A custom callback for when the text input area is tapped.
+  /// Useful for opening custom dialogs.
+  final VoidCallback? onInputTap;
 
   @override
   State<CNumberInput> createState() => _CNumberInputState();
@@ -71,36 +85,50 @@ class _CNumberInputState extends State<CNumberInput> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.labelText, style: CTypography.label01),
-        const SizedBox(height: CSpacing.small),
+        if (widget.labelText.isNotEmpty) ...[
+          Text(widget.labelText, style: CTypography.label01),
+          const SizedBox(height: CSpacing.small),
+        ],
         Row(
+          mainAxisSize: MainAxisSize.min, 
           children: [
             Expanded(
-              child: CTextInput(
-                labelText: '',
-                controller: _controller,
-                enabled: isEnabled,
-                keyboardType: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'^-?\d*\.?\d*')),
-                ],
-                onSubmitted: _onTextFieldSubmitted,
+              child: GestureDetector(
+                onTap: widget.onInputTap,
+                child: AbsorbPointer(
+                  absorbing: widget.onInputTap != null,
+                  child: CTextInput(
+                    labelText: '',
+                    controller: _controller,
+                    enabled: isEnabled,
+                    // textAlign: TextAlign.center,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                        RegExp(r'^-?\d*\.?\d*'),
+                      ),
+                    ],
+                    onSubmitted: _onTextFieldSubmitted,
+                  ),
+                ),
               ),
             ),
-            const SizedBox(width: 2), // Small gap
+            const SizedBox(width: 2),
             Column(
               children: [
                 _buildStepperButton(
                   icon: Icons.keyboard_arrow_up,
                   onPressed: isEnabled
-                      ? () => _updateValue(widget.value + widget.step)
+                      ? (widget.onIncrement ??
+                            () => _updateValue(widget.value + widget.step))
                       : null,
                 ),
                 const SizedBox(height: 2),
                 _buildStepperButton(
                   icon: Icons.keyboard_arrow_down,
                   onPressed: isEnabled
-                      ? () => _updateValue(widget.value - widget.step)
+                      ? (widget.onDecrement ??
+                            () => _updateValue(widget.value - widget.step))
                       : null,
                 ),
               ],
