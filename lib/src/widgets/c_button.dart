@@ -25,14 +25,14 @@ enum CButtonType {
 class CButton extends StatefulWidget {
   const CButton({
     super.key,
-    required this.label,
+    this.label,
     required this.onPressed,
     this.icon,
     this.type = CButtonType.primary,
   });
 
   /// The text to display inside the button.
-  final String label;
+  final String? label;
 
   /// An optional icon to display before the label.
   final Widget? icon;
@@ -152,10 +152,11 @@ class _CButtonState extends State<CButton> {
                   child: widget.icon!,
                 ),
               if (widget.icon != null) const SizedBox(width: CSpacing.small),
-              Text(
-                widget.label,
-                style: CTypography.button.copyWith(color: foregroundColor),
-              ),
+              if (widget.label != null && widget.label != '')
+                Text(
+                  widget.label!,
+                  style: CTypography.button.copyWith(color: foregroundColor),
+                ),
             ],
           ),
         ),
