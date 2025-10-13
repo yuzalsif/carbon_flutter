@@ -23,6 +23,7 @@ class CTextInput extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.enabled = true,
+    this.onBackground = false,
   });
 
   /// The text that is displayed above the input field.
@@ -64,6 +65,11 @@ class CTextInput extends StatelessWidget {
   /// Whether the input field is interactive.
   final bool enabled;
 
+  /// Set to `true` if the input is placed on a contrasting background,
+  /// such as a white card or modal. This will adjust the fill color.
+  /// Defaults to `false`.
+  final bool onBackground;
+
   @override
   Widget build(BuildContext context) {
     final bool hasError = errorText != null && errorText!.isNotEmpty;
@@ -72,13 +78,27 @@ class CTextInput extends StatelessWidget {
         ? CColors.supportError
         : CColors.textSecondary;
 
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+    late final Color fillColor;
+
+    if (onBackground) {
+      // The input is on a contrasting surface (e.g., a white card).
+      // Use the main page background color for the fill.
+      fillColor = isDark ? CColors.backgroundInverse : CColors.background;
+    } else {
+      // The input is on the main page background.
+      // Use the component background color for the fill.
+      fillColor = isDark
+          ? CColors.backgroundComponentInverse
+          : CColors.backgroundComponent;
+    }
+
     return Opacity(
       opacity: enabled ? 1.0 : 0.5,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Label is hidden if it's empty (for CSearch and CSlider)
           if (labelText.isNotEmpty) ...[
             Text(
               labelText,
@@ -86,7 +106,6 @@ class CTextInput extends StatelessWidget {
             ),
             const SizedBox(height: CSpacing.small),
           ],
-
           TextField(
             controller: controller,
             onChanged: enabled ? onChanged : null,
@@ -97,6 +116,7 @@ class CTextInput extends StatelessWidget {
             keyboardType: keyboardType,
             inputFormatters: inputFormatters,
             decoration: InputDecoration(
+              fillColor: fillColor,
               hintText: hintText,
               prefixIcon: prefixIcon,
               suffixIcon: suffixIcon,
@@ -104,7 +124,6 @@ class CTextInput extends StatelessWidget {
               errorStyle: const TextStyle(height: 0),
             ),
           ),
-
           if (bottomText != null && bottomText.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: CSpacing.small),
