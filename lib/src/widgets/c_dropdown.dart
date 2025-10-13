@@ -13,7 +13,7 @@ class CDropdownItem<T> {
 class CDropdown<T> extends StatelessWidget {
   const CDropdown({
     super.key,
-    required this.labelText,
+    this.labelText,
     required this.items,
     this.value,
     required this.onChanged,
@@ -21,7 +21,7 @@ class CDropdown<T> extends StatelessWidget {
     this.enabled = true,
   });
 
-  final String labelText;
+  final String? labelText;
   final String? hintText;
   final List<CDropdownItem<T>> items;
   final T? value;
@@ -39,17 +39,25 @@ class CDropdown<T> extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          labelText,
-          style: CTypography.label01.copyWith(color: CColors.textSecondary),
-        ),
+        if (labelText != null && labelText != '')
+          Text(
+            labelText!,
+            style: CTypography.label01.copyWith(color: CColors.textSecondary),
+          ),
         const SizedBox(height: CSpacing.small),
         DropdownButtonFormField<T>(
+          isExpanded: true,
           initialValue: value,
           items: items.map((item) {
             return DropdownMenuItem<T>(
               value: item.value,
-              child: Text(item.text, style: CTypography.bodyCompact01),
+              child: Text(
+                item.text,
+                style: CTypography.bodyCompact01,
+                overflow: TextOverflow.ellipsis,
+                softWrap: false,
+                maxLines: 1,
+              ),
             );
           }).toList(),
           onChanged: enabled ? onChanged : null,
