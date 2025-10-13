@@ -15,6 +15,8 @@ enum CButtonType {
 
   /// For the least prominent actions, often used in groups.
   ghost,
+
+  tertiary,
 }
 
 /// A Carbon Design System compliant button.
@@ -56,6 +58,7 @@ class _CButtonState extends State<CButton> {
   bool get _isDisabled => widget.onPressed == null;
 
   Color _getBackgroundColor() {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
     if (_isDisabled) {
       // Use a neutral disabled color for the background.
       return CColors.borderStrong.withValues(alpha: 0.5);
@@ -70,6 +73,8 @@ class _CButtonState extends State<CButton> {
           return CColors.supportError.withValues(alpha: 0.8);
         case CButtonType.ghost:
           return CColors.borderSubtle;
+        case CButtonType.tertiary:
+          return isDark ? CColors.borderInverse : CColors.borderSubtle;
       }
     }
     if (_isHovered) {
@@ -83,6 +88,10 @@ class _CButtonState extends State<CButton> {
           return CColors.supportError.withValues(alpha: 0.9);
         case CButtonType.ghost:
           return CColors.borderSubtle.withValues(alpha: 0.8);
+        case CButtonType.tertiary:
+          return isDark
+              ? CColors.borderInverse.withValues(alpha: 0.8)
+              : CColors.borderSubtle.withValues(alpha: 0.8);
       }
     }
     // Default background colors
@@ -94,10 +103,13 @@ class _CButtonState extends State<CButton> {
       case CButtonType.secondary:
       case CButtonType.ghost:
         return Colors.transparent;
+      case CButtonType.tertiary:
+        return Colors.transparent;
     }
   }
 
   Color _getForegroundColor() {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
     if (_isDisabled) {
       return CColors.textDisabled;
     }
@@ -108,6 +120,10 @@ class _CButtonState extends State<CButton> {
       case CButtonType.secondary:
       case CButtonType.ghost:
         return CColors.primary;
+
+      case CButtonType.tertiary:
+        // Use the primary text color for the icon for good contrast
+        return isDark ? CColors.textPrimaryInverse : CColors.textPrimary;
     }
   }
 

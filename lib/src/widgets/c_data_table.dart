@@ -17,11 +17,13 @@ class CDataTable extends StatefulWidget {
     required this.columns,
     required this.rows,
     this.minWidth,
+    this.dataRowHeight = 52.0,
   });
 
   final List<CDataColumn> columns;
   final List<Map<String, dynamic>> rows;
   final double? minWidth;
+  final double dataRowHeight;
 
   @override
   State<CDataTable> createState() => _CDataTableState();
@@ -66,6 +68,8 @@ class _CDataTableState extends State<CDataTable> {
           sortColumnIndex: _sortColumnIndex,
           sortAscending: _sortAscending,
           headingRowColor: WidgetStateProperty.all(CColors.backgroundComponent),
+          dataRowMaxHeight: widget.dataRowHeight,
+          dataRowMinHeight: widget.dataRowHeight,
           columns: widget.columns.map((col) {
             return DataColumn(
               label: Text(col.label, style: CTypography.label01),

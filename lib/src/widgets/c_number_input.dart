@@ -89,51 +89,53 @@ class _CNumberInputState extends State<CNumberInput> {
           Text(widget.labelText, style: CTypography.label01),
           const SizedBox(height: CSpacing.small),
         ],
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Expanded(
-              child: GestureDetector(
-                onTap: widget.onInputTap,
-                child: AbsorbPointer(
-                  absorbing: widget.onInputTap != null,
-                  child: CTextInput(
-                    labelText: '',
-                    controller: _controller,
-                    enabled: isEnabled,
-                    // textAlign: TextAlign.center,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(
-                        RegExp(r'^-?\d*\.?\d*'),
-                      ),
-                    ],
-                    onSubmitted: _onTextFieldSubmitted,
+        Expanded(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: widget.onInputTap,
+                  child: AbsorbPointer(
+                    absorbing: widget.onInputTap != null,
+                    child: CTextInput(
+                      labelText: '',
+                      controller: _controller,
+                      enabled: isEnabled,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                          RegExp(r'^-?\d*\.?\d*'),
+                        ),
+                      ],
+                      onSubmitted: _onTextFieldSubmitted,
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(width: CSpacing.xSmall),
-            Column(
-              children: [
-                _buildStepperButton(
-                  icon: Icons.keyboard_arrow_up,
-                  onPressed: isEnabled
-                      ? (widget.onIncrement ??
-                            () => _updateValue(widget.value + widget.step))
-                      : null,
-                ),
-                const SizedBox(width: CSpacing.halfXSmall),
-                _buildStepperButton(
-                  icon: Icons.keyboard_arrow_down,
-                  onPressed: isEnabled
-                      ? (widget.onDecrement ??
-                            () => _updateValue(widget.value - widget.step))
-                      : null,
-                ),
-              ],
-            ),
-          ],
+              const SizedBox(width: CSpacing.xSmall),
+              Column(
+                children: [
+                  _buildStepperButton(
+                    icon: Icons.keyboard_arrow_up,
+                    onPressed: isEnabled
+                        ? (widget.onIncrement ??
+                              () => _updateValue(widget.value + widget.step))
+                        : null,
+                  ),
+                  const SizedBox(width: CSpacing.halfXSmall),
+                  _buildStepperButton(
+                    icon: Icons.keyboard_arrow_down,
+                    onPressed: isEnabled
+                        ? (widget.onDecrement ??
+                              () => _updateValue(widget.value - widget.step))
+                        : null,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -147,10 +149,10 @@ class _CNumberInputState extends State<CNumberInput> {
       width: 34,
       height: 23, // Half of the text field's inner height
       child: CButton(
-        icon: Icon(icon, size: 20),
+        icon: Icon(icon),
         label: '',
         onPressed: onPressed,
-        type: CButtonType.secondary,
+        type: CButtonType.tertiary,
       ),
     );
   }
