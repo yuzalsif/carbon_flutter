@@ -90,7 +90,7 @@ class _CNumberInputState extends State<CNumberInput> {
           const SizedBox(height: CSpacing.small),
         ],
         Row(
-          mainAxisSize: MainAxisSize.min, 
+          mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
               child: GestureDetector(
@@ -113,7 +113,7 @@ class _CNumberInputState extends State<CNumberInput> {
                 ),
               ),
             ),
-            const SizedBox(width: 2),
+            const SizedBox(width: CSpacing.xSmall),
             Column(
               children: [
                 _buildStepperButton(
@@ -123,7 +123,7 @@ class _CNumberInputState extends State<CNumberInput> {
                             () => _updateValue(widget.value + widget.step))
                       : null,
                 ),
-                const SizedBox(height: 2),
+                const SizedBox(width: CSpacing.halfXSmall),
                 _buildStepperButton(
                   icon: Icons.keyboard_arrow_down,
                   onPressed: isEnabled
@@ -144,7 +144,7 @@ class _CNumberInputState extends State<CNumberInput> {
     required VoidCallback? onPressed,
   }) {
     return SizedBox(
-      width: 48,
+      width: 34,
       height: 23, // Half of the text field's inner height
       child: CButton(
         icon: Icon(icon, size: 20),
