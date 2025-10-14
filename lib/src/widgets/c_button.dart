@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:carbon_flutter/carbon_flutter.dart';
 
 /// Defines the size of a [CButton], affecting its height and padding.
-enum CButtonSize { small, regular }
+enum CButtonSize {
+  xsmall, // 24px
+  small, // 32px
+  medium, // 40px
+  regular, // 48px (Default, corresponds to 'lg' productive)
+  xlarge, // 64px
+}
 
 /// Defines the visual style and semantic purpose of a [CButton],
 /// aligned with the official Carbon Design System types.
@@ -32,6 +38,7 @@ class CButton extends StatefulWidget {
     this.icon,
     this.type = CButtonType.primary,
     this.size = CButtonSize.regular,
+    this.width,
   });
 
   final String? label;
@@ -39,6 +46,7 @@ class CButton extends StatefulWidget {
   final VoidCallback? onPressed;
   final CButtonType type;
   final CButtonSize size;
+  final double? width;
 
   @override
   State<CButton> createState() => _CButtonState();
@@ -65,8 +73,8 @@ class _CButtonState extends State<CButton> {
           return CColors.primaryHover;
         case CButtonType.secondary:
           return isDark
-              ? CColors.borderInverse.withValues(alpha: 0.6)
-              : CColors.backgroundInverse.withValues(alpha: 0.1);
+              ? CColors.borderInverse.withValues(alpha: 0.3)
+              : CColors.backgroundInverse.withValues(alpha: 0.3);
         case CButtonType.danger:
           return CColors.supportError.withValues(alpha: 0.8);
         case CButtonType.tertiary:
@@ -142,10 +150,42 @@ class _CButtonState extends State<CButton> {
   @override
   Widget build(BuildContext context) {
     final foregroundColor = _getForegroundColor();
-    final buttonHeight = widget.size == CButtonSize.regular ? 48.0 : 32.0;
-    final horizontalPadding = widget.size == CButtonSize.regular
-        ? CSpacing.medium
-        : CSpacing.small;
+    late final double buttonHeight;
+    late final double horizontalPadding;
+    late final double iconSize;
+
+    switch (widget.size) {
+      case CButtonSize.xsmall:
+        buttonHeight = 24.0;
+        horizontalPadding = CSpacing.small; // Less padding for smaller size
+        iconSize = 16.0;
+        break;
+      case CButtonSize.small:
+        buttonHeight = 32.0;
+        horizontalPadding = CSpacing.medium;
+        iconSize = 16.0;
+        break;
+      case CButtonSize.medium:
+        buttonHeight = 40.0;
+        horizontalPadding = CSpacing.medium;
+        iconSize = 20.0;
+        break;
+      case CButtonSize.regular:
+        buttonHeight = 48.0;
+        horizontalPadding = CSpacing.medium;
+        iconSize = 20.0;
+        break;
+      case CButtonSize.xlarge:
+        buttonHeight = 64.0;
+        horizontalPadding = CSpacing.large; // More padding for larger size
+        iconSize = 24.0;
+        break;
+    }
+
+    final bool hasIcon = widget.icon != null;
+    final MainAxisAlignment alignment = hasIcon
+        ? MainAxisAlignment.center
+        : MainAxisAlignment.start;
 
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
@@ -161,28 +201,41 @@ class _CButtonState extends State<CButton> {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 100),
           height: buttonHeight,
+          width: widget.width,
           padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
           decoration: BoxDecoration(
             color: _getBackgroundColor(),
             border: Border.fromBorderSide(_getBorderSide()),
           ),
           child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: alignment,
+            mainAxisSize: MainAxisSize.max,
             children: [
-              if (widget.icon != null)
-                IconTheme(
-                  data: IconThemeData(color: foregroundColor, size: 16),
-                  child: widget.icon!,
-                ),
-              if (widget.icon != null &&
-                  (widget.label != null && widget.label != ''))
-                const SizedBox(width: CSpacing.small),
-              if (widget.label != null && widget.label != '')
-                Text(
-                  widget.label!,
-                  style: CTypography.button.copyWith(color: foregroundColor),
-                ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (widget.icon != null)
+                    IconTheme(
+                      data: IconThemeData(
+                        color: foregroundColor,
+                        size: iconSize,
+                      ),
+                      child: widget.icon!,
+                    ),
+                  if (widget.icon != null &&
+                      (widget.label != null && widget.label != ''))
+                    const SizedBox(width: CSpacing.small),
+                  if (widget.label != null && widget.label != '')
+                    Text(
+                      widget.label!,
+                      style: CTypography.button.copyWith(
+                        color: foregroundColor,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                ],
+              ),
             ],
           ),
         ),
