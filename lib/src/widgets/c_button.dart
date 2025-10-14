@@ -211,33 +211,26 @@ class _CButtonState extends State<CButton> {
           ),
           child: Row(
             mainAxisAlignment: alignment,
-            mainAxisSize: MainAxisSize.max,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (widget.icon != null)
-                    IconTheme(
-                      data: IconThemeData(
-                        color: foregroundColor,
-                        size: iconSize,
-                      ),
-                      child: widget.icon!,
-                    ),
-                  if (widget.icon != null &&
-                      (widget.label != null && widget.label != ''))
-                    const SizedBox(width: CSpacing.small),
-                  if (widget.label != null && widget.label != '')
-                    Text(
-                      widget.label!,
-                      style: CTypography.button.copyWith(
-                        color: foregroundColor,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                ],
-              ),
+              if (widget.icon != null)
+                IconTheme(
+                  data: IconThemeData(
+                    color: foregroundColor,
+                    size: iconSize,
+                  ),
+                  child: widget.icon!,
+                ),
+              if (widget.icon != null &&
+                  (widget.label != null && widget.label != ''))
+                const SizedBox(width: CSpacing.small),
+              if (widget.label != null && widget.label != '')
+                Text(
+                  widget.label!,
+                  style: CTypography.button.copyWith(
+                    color: foregroundColor,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
             ],
           ),
         ),

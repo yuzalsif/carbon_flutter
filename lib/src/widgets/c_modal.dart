@@ -74,10 +74,12 @@ class _CModalContent extends StatelessWidget {
             const SizedBox(height: CSpacing.large),
             // Actions
             Padding(
-              padding: const EdgeInsets.all(CSpacing.medium),
+              padding: const EdgeInsets.only(top: CSpacing.large),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: actions,
+                children: [
+                  Expanded(child: actions[0]),
+                  SizedBox(width: 200, child: actions[1]),
+                ],
               ),
             ),
           ],
