@@ -73,8 +73,8 @@ class _CButtonState extends State<CButton> {
           return CColors.primaryHover;
         case CButtonType.secondary:
           return isDark
-              ? CColors.borderInverse.withValues(alpha: 0.3)
-              : CColors.backgroundInverse.withValues(alpha: 0.3);
+              ? CColors.borderInverse.withValues(alpha: 0.8)
+              : CColors.backgroundInverse.withValues(alpha: 0.8);
         case CButtonType.danger:
           return CColors.supportError.withValues(alpha: 0.8);
         case CButtonType.tertiary:
@@ -108,7 +108,9 @@ class _CButtonState extends State<CButton> {
       case CButtonType.primary:
         return CColors.primary;
       case CButtonType.secondary:
-        return isDark ? CColors.borderInverse : CColors.backgroundInverse;
+        return isDark
+            ? CColors.borderInverse
+            : CColors.backgroundInverse.withValues(alpha: 0.8);
       case CButtonType.danger:
         return CColors.supportError;
       case CButtonType.tertiary:
