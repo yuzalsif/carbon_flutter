@@ -42,11 +42,7 @@ class CSnackbar {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         // The content is our custom Carbon-styled widget.
-        content: _CSnackbarContent(
-          title: title,
-          subtitle: subtitle,
-          type: type,
-        ),
+        content: CSnackbarContent(title: title, subtitle: subtitle, type: type),
         // We make the SnackBar itself transparent and remove elevation
         // because our custom widget handles its own background and styling.
         backgroundColor: Colors.transparent,
@@ -63,8 +59,9 @@ class CSnackbar {
 }
 
 /// The internal widget that builds the visual layout of the toast notification.
-class _CSnackbarContent extends StatelessWidget {
-  const _CSnackbarContent({
+class CSnackbarContent extends StatelessWidget {
+  const CSnackbarContent({
+    super.key,
     required this.title,
     this.subtitle,
     required this.type,
