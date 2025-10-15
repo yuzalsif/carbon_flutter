@@ -26,6 +26,18 @@ class CSnackbar {
     // Hide any currently displayed snackbar.
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    const double breakpoint =
+        600.0; // A common breakpoint for mobile vs. tablet/desktop
+
+    final SnackBarBehavior behavior = screenWidth > breakpoint
+        ? SnackBarBehavior
+              .floating // Use floating for large screens
+        : SnackBarBehavior.fixed; // Use fixed (full-width) for small screens
+
+    final double? width = screenWidth > breakpoint ? 400.0 : null;
+
     // Show the new snackbar.
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -38,6 +50,8 @@ class CSnackbar {
         // We make the SnackBar itself transparent and remove elevation
         // because our custom widget handles its own background and styling.
         backgroundColor: Colors.transparent,
+        behavior: behavior,
+        width: width,
         elevation: 0,
         padding: const EdgeInsets.symmetric(
           horizontal: CSpacing.medium,

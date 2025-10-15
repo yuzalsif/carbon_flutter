@@ -152,7 +152,7 @@ class _CNumberInputState extends State<CNumberInput> {
         icon: Icon(icon),
         label: '',
         onPressed: onPressed,
-        type: CButtonType.tertiary,
+        type: CButtonType.ghost,
       ),
     );
   }
