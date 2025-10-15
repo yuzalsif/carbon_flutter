@@ -59,6 +59,16 @@ class _CDataTableState extends State<CDataTable> {
   }
 
   @override
+  void didUpdateWidget(CDataTable oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.rows != oldWidget.rows) {
+      setState(() {
+        _sortedRows = List.from(widget.rows);
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
