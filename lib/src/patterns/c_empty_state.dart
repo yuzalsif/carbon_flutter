@@ -1,21 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:carbon_flutter/carbon_flutter.dart';
 
+/// A Carbon Design System compliant Empty State pattern.
+///
+/// Empty states are moments in an application where there is no data to display.
+/// This pattern provides a clear and helpful message to the user, often with
+/// actions to resolve the state.
 class CEmptyState extends StatelessWidget {
   const CEmptyState({
     super.key,
     this.image,
     required this.title,
     this.description,
-    this.action,
+    this.primaryAction,
+    this.secondaryAction,
   });
 
   /// An optional visual element, typically a large [Icon] or an [Image].
   final Widget? image;
 
+  /// The main message or heading for the empty state.
   final String title;
+
+  /// An optional, more detailed description providing context.
   final String? description;
-  final Widget? action;
+
+  /// An optional primary action widget, typically a [CButton].
+  final Widget? primaryAction;
+
+  /// An optional secondary action widget, typically a [CLink], displayed
+  /// below the primary action.
+  final Widget? secondaryAction;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +41,7 @@ class CEmptyState extends StatelessWidget {
           padding: const EdgeInsets.all(CSpacing.xxLarge),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (image != null) ...[
                 DefaultTextStyle(
@@ -55,10 +70,18 @@ class CEmptyState extends StatelessWidget {
                   style: CTypography.body01,
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: CSpacing.large),
               ],
 
-              if (action != null) action!,
+              if (description != null &&
+                  (primaryAction != null || secondaryAction != null))
+                const SizedBox(height: CSpacing.large),
+
+              if (primaryAction != null) ...[primaryAction!],
+
+              if (primaryAction != null && secondaryAction != null)
+                const SizedBox(height: CSpacing.medium),
+
+              if (secondaryAction != null) ...[secondaryAction!],
             ],
           ),
         ),
