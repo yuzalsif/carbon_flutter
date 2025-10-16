@@ -24,6 +24,7 @@ class CTextInput extends StatelessWidget {
     this.suffixIcon,
     this.enabled = true,
     this.onBackground = false,
+    this.onTap,
   });
 
   /// The text that is displayed above the input field.
@@ -70,6 +71,8 @@ class CTextInput extends StatelessWidget {
   /// Defaults to `false`.
   final bool onBackground;
 
+  final VoidCallback? onTap;
+
   @override
   Widget build(BuildContext context) {
     final bool hasError = errorText != null && errorText!.isNotEmpty;
@@ -112,6 +115,7 @@ class CTextInput extends StatelessWidget {
             onSubmitted: enabled ? onSubmitted : null,
             obscureText: obscureText,
             enabled: enabled,
+            onTap: onTap,
             style: CTypography.bodyCompact01,
             keyboardType: keyboardType,
             inputFormatters: inputFormatters,

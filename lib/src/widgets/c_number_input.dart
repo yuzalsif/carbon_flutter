@@ -2,6 +2,153 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:carbon_flutter/carbon_flutter.dart';
 
+// class CNumberInput extends StatefulWidget {
+//   const CNumberInput({
+//     super.key,
+//     this.labelText = '',
+//     required this.value,
+//     required this.onChanged,
+//     this.min = 0,
+//     this.max = 100,
+//     this.step = 1,
+//     this.enabled = true,
+//     this.onIncrement,
+//     this.onDecrement,
+//     this.onInputTap,
+//     this.onBackground,
+//   });
+
+//   final String labelText;
+//   final num value;
+//   final ValueChanged<num> onChanged;
+//   final num min;
+//   final num max;
+//   final num step;
+//   final bool enabled;
+//   final bool? onBackground;
+
+//   @override
+//   State<CNumberInput> createState() => _CNumberInputState();
+// }
+
+// class _CNumberInputState extends State<CNumberInput> {
+//   late final TextEditingController _controller;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _controller = TextEditingController(text: widget.value.toString());
+//   }
+
+//   @override
+//   void didUpdateWidget(CNumberInput oldWidget) {
+//     super.didUpdateWidget(oldWidget);
+//     if (widget.value != oldWidget.value) {
+//       _controller.text = widget.value.toString();
+//     }
+//   }
+
+//   @override
+//   void dispose() {
+//     _controller.dispose();
+//     super.dispose();
+//   }
+
+//   void _updateValue(num newValue) {
+//     final clampedValue = newValue.clamp(widget.min, widget.max);
+//     widget.onChanged(clampedValue);
+//   }
+
+//   void _onTextFieldSubmitted(String textValue) {
+//     final num? parsedValue = num.tryParse(textValue);
+//     if (parsedValue != null) {
+//       _updateValue(parsedValue);
+//     } else {
+//       _controller.text = widget.value.toString();
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final bool isEnabled = widget.enabled;
+
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         if (widget.labelText.isNotEmpty) ...[
+//           Text(widget.labelText, style: CTypography.label01),
+//           const SizedBox(height: CSpacing.small),
+//         ],
+//         Expanded(
+//           child: Row(
+//             mainAxisSize: MainAxisSize.min,
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Expanded(
+//                 child: GestureDetector(
+//                   onTap: widget.onInputTap,
+//                   child: AbsorbPointer(
+//                     absorbing: widget.onInputTap != null,
+//                     child: CTextInput(
+//                       labelText: '',
+//                       controller: _controller,
+//                       enabled: isEnabled,
+//                       onBackground: widget.onBackground ?? false,
+//                       keyboardType: TextInputType.number,
+//                       inputFormatters: [
+//                         FilteringTextInputFormatter.allow(
+//                           RegExp(r'^-?\d*\.?\d*'),
+//                         ),
+//                       ],
+//                       onSubmitted: _onTextFieldSubmitted,
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//               const SizedBox(width: CSpacing.xSmall),
+//               Column(
+//                 children: [
+//                   _buildStepperButton(
+//                     icon: Icons.keyboard_arrow_up,
+//                     onPressed: isEnabled
+//                         ? (widget.onIncrement ??
+//                               () => _updateValue(widget.value + widget.step))
+//                         : null,
+//                   ),
+//                   const SizedBox(width: CSpacing.halfXSmall),
+//                   _buildStepperButton(
+//                     icon: Icons.keyboard_arrow_down,
+//                     onPressed: isEnabled
+//                         ? (widget.onDecrement ??
+//                               () => _updateValue(widget.value - widget.step))
+//                         : null,
+//                   ),
+//                 ],
+//               ),
+//             ],
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+
+//   Widget _buildStepperButton({
+//     required IconData icon,
+//     required VoidCallback? onPressed,
+//   }) {
+//     return SizedBox(
+//       width: 56,
+//       height: 23, // Half of the text field's inner height
+//       child: CButton(
+//         icon: Icon(icon),
+//         label: '',
+//         onPressed: onPressed,
+//         type: CButtonType.ghost,
+//       ),
+//     );
+//   }
+// }
+
 class CNumberInput extends StatefulWidget {
   const CNumberInput({
     super.key,
@@ -15,7 +162,9 @@ class CNumberInput extends StatefulWidget {
     this.onIncrement,
     this.onDecrement,
     this.onInputTap,
-    this.onBackground,
+    this.onBackground = false,
+    this.helperText,
+    this.errorText,
   });
 
   final String labelText;
@@ -25,7 +174,9 @@ class CNumberInput extends StatefulWidget {
   final num max;
   final num step;
   final bool enabled;
-  final bool? onBackground;
+  final bool onBackground;
+  final String? helperText;
+  final String? errorText;
 
   /// A custom callback for the increment (+) button.
   /// If provided, this overrides the default `value + step` logic.
@@ -56,7 +207,10 @@ class _CNumberInputState extends State<CNumberInput> {
   void didUpdateWidget(CNumberInput oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.value != oldWidget.value) {
-      _controller.text = widget.value.toString();
+      // Avoid updating if the user is currently editing the text.
+      if (primaryFocus?.context?.widget is! EditableText) {
+        _controller.text = widget.value.toString();
+      }
     }
   }
 
@@ -83,80 +237,55 @@ class _CNumberInputState extends State<CNumberInput> {
   @override
   Widget build(BuildContext context) {
     final bool isEnabled = widget.enabled;
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (widget.labelText.isNotEmpty) ...[
-          Text(widget.labelText, style: CTypography.label01),
-          const SizedBox(height: CSpacing.small),
-        ],
-        Expanded(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: GestureDetector(
-                  onTap: widget.onInputTap,
-                  child: AbsorbPointer(
-                    absorbing: widget.onInputTap != null,
-                    child: CTextInput(
-                      labelText: '',
-                      controller: _controller,
-                      enabled: isEnabled,
-                      onBackground: widget.onBackground ?? false,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                          RegExp(r'^-?\d*\.?\d*'),
-                        ),
-                      ],
-                      onSubmitted: _onTextFieldSubmitted,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: CSpacing.xSmall),
-              Column(
-                children: [
-                  _buildStepperButton(
-                    icon: Icons.keyboard_arrow_up,
-                    onPressed: isEnabled
-                        ? (widget.onIncrement ??
-                              () => _updateValue(widget.value + widget.step))
-                        : null,
-                  ),
-                  const SizedBox(width: CSpacing.halfXSmall),
-                  _buildStepperButton(
-                    icon: Icons.keyboard_arrow_down,
-                    onPressed: isEnabled
-                        ? (widget.onDecrement ??
-                              () => _updateValue(widget.value - widget.step))
-                        : null,
-                  ),
-                ],
-              ),
-            ],
+    final iconColor = isDark ? CColors.textPrimaryInverse : CColors.textPrimary;
+    final dividerColor = isDark ? CColors.borderInverse : CColors.borderStrong;
+
+    final stepper = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        // Decrement (-) Button
+        InkWell(
+          onTap: isEnabled
+              ? (widget.onDecrement ??
+                    () => _updateValue(widget.value - widget.step))
+              : null,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: CSpacing.small),
+            child: Icon(Icons.remove, size: 14, color: iconColor),
+          ),
+        ),
+        // Vertical Divider
+        Container(width: 1, height: 24, color: dividerColor),
+        // Increment (+) Button
+        InkWell(
+          onTap: isEnabled
+              ? (widget.onIncrement ??
+                    () => _updateValue(widget.value + widget.step))
+              : null,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: CSpacing.small),
+            child: Icon(Icons.add, size: 14, color: iconColor),
           ),
         ),
       ],
     );
-  }
 
-  Widget _buildStepperButton({
-    required IconData icon,
-    required VoidCallback? onPressed,
-  }) {
-    return SizedBox(
-      width: 56,
-      height: 23, // Half of the text field's inner height
-      child: CButton(
-        icon: Icon(icon),
-        label: '',
-        onPressed: onPressed,
-        type: CButtonType.ghost,
-      ),
+    return CTextInput(
+      labelText: widget.labelText,
+      controller: _controller,
+      enabled: isEnabled,
+      onBackground: widget.onBackground,
+      helperText: widget.helperText,
+      errorText: widget.errorText,
+      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'^-?\d*\.?\d*')),
+      ],
+      onSubmitted: _onTextFieldSubmitted,
+      onTap: widget.onInputTap,
+      suffixIcon: stepper,
     );
   }
 }
