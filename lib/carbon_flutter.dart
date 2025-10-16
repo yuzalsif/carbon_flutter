@@ -45,3 +45,6 @@ export 'src/widgets/c_list.dart';
 export 'src/widgets/c_multiselect.dart';
 export 'src/widgets/c_pagination.dart';
 export 'src/widgets/c_card.dart';
+
+// --- Patterns ---
+export 'src/patterns/c_empty_state.dart';
