@@ -19,6 +19,7 @@ class CDropdown<T> extends StatelessWidget {
     required this.onChanged,
     this.hintText,
     this.enabled = true,
+    this.onBackground = false,
   });
 
   final String? labelText;
@@ -27,6 +28,7 @@ class CDropdown<T> extends StatelessWidget {
   final T? value;
   final ValueChanged<T?> onChanged;
   final bool enabled;
+  final bool onBackground;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,20 @@ class CDropdown<T> extends StatelessWidget {
     final Color textColor = enabled
         ? (isDark ? CColors.textPrimaryInverse : CColors.textPrimary)
         : (isDark ? CColors.textDisabledInverse : CColors.textDisabled);
+
+    late final Color fillColor;
+
+    if (onBackground) {
+      // The input is on a contrasting surface (e.g., a white card).
+      // Use the main page background color for the fill.
+      fillColor = isDark ? CColors.backgroundInverse : CColors.background;
+    } else {
+      // The input is on the main page background.
+      // Use the component background color for the fill.
+      fillColor = isDark
+          ? CColors.backgroundComponentInverse
+          : CColors.backgroundComponent;
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,8 +80,9 @@ class CDropdown<T> extends StatelessWidget {
           style: CTypography.bodyCompact01.copyWith(color: textColor),
           icon: const Icon(Icons.keyboard_arrow_down),
           decoration: InputDecoration(
+            fillColor: fillColor,
             hintText: hintText,
-            // The CTheme inputDecorationTheme handles the rest!
+            errorStyle: const TextStyle(height: 0),
           ),
         ),
       ],
