@@ -52,4 +52,11 @@ class CColors {
   static const Color supportSuccess = Color(0xFF24A148);
   static const Color supportWarning = Color(0xFFF1C21B);
   static const Color supportInfo = Color(0xFF3D70B2);
+
+  /// A subtle background color for elements like table headers. (Carbon: gray-20)
+  static const Color backgroundSubtle = Color(0xFFE0E0E0);
+
+  static const Color backgroundSubtleInverse = Color(
+    0xFF525252,
+  ); // Carbon: gray-70
 }

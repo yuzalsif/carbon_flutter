@@ -19,6 +19,8 @@ class DataTableExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CDataTable(columns: _columns, rows: _rows);
+    return CCard(
+      child: CDataTable(columns: _columns, rows: _rows),
+    );
   }
 }

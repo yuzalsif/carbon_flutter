@@ -15,6 +15,7 @@ class CNumberInput extends StatefulWidget {
     this.onIncrement,
     this.onDecrement,
     this.onInputTap,
+    this.onBackground,
   });
 
   final String labelText;
@@ -24,6 +25,7 @@ class CNumberInput extends StatefulWidget {
   final num max;
   final num step;
   final bool enabled;
+  final bool? onBackground;
 
   /// A custom callback for the increment (+) button.
   /// If provided, this overrides the default `value + step` logic.
@@ -103,6 +105,7 @@ class _CNumberInputState extends State<CNumberInput> {
                       labelText: '',
                       controller: _controller,
                       enabled: isEnabled,
+                      onBackground: widget.onBackground ?? false,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(

@@ -70,29 +70,78 @@ class _CDataTableState extends State<CDataTable> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: ConstrainedBox(
-        constraints: BoxConstraints(minWidth: widget.minWidth ?? 0.0),
-        child: DataTable(
-          sortColumnIndex: _sortColumnIndex,
-          sortAscending: _sortAscending,
-          headingRowColor: WidgetStateProperty.all(CColors.backgroundComponent),
-          dataRowMaxHeight: widget.dataRowHeight,
-          dataRowMinHeight: widget.dataRowHeight,
-          columns: widget.columns.map((col) {
-            return DataColumn(
-              label: Text(col.label, style: CTypography.label01),
-              onSort: (index, ascending) => _sort(index, ascending),
-            );
-          }).toList(),
-          rows: _sortedRows.map((row) {
-            return DataRow(
-              cells: widget.columns.map((col) {
-                return DataCell(row[col.key]);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final headerColor = isDark
+        ? CColors.backgroundSubtleInverse
+        : CColors.backgroundSubtle;
+
+    final rowColor = isDark
+        ? CColors.backgroundInverse
+        : CColors.backgroundComponent;
+    final dividerColor = isDark ? CColors.borderInverse : CColors.borderSubtle;
+
+    return Theme(
+      data: Theme.of(context).copyWith(
+        dividerTheme: DividerThemeData(
+          color: dividerColor,
+          space: 1,
+          thickness: 1,
+        ),
+      ),
+      child: Material(
+        color: rowColor,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minWidth: widget.minWidth ?? 0.0),
+            child: DataTable(
+              sortColumnIndex: _sortColumnIndex,
+              sortAscending: _sortAscending,
+
+              headingRowColor: WidgetStateProperty.all(headerColor),
+              dataRowMaxHeight: widget.dataRowHeight,
+              dataRowMinHeight: widget.dataRowHeight,
+
+              dataRowColor: WidgetStateProperty.resolveWith<Color?>((
+                Set<WidgetState> states,
+              ) {
+                if (states.contains(WidgetState.hovered)) {
+                  return Theme.of(context).hoverColor;
+                }
+                return null; // Use default color for other states
+              }),
+
+              columns: widget.columns.map((col) {
+                return DataColumn(
+                  label: Text(
+                    col.label,
+                    style: CTypography.label01.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  onSort: (index, ascending) => _sort(index, ascending),
+                );
               }).toList(),
-            );
-          }).toList(),
+
+              rows: _sortedRows.map((row) {
+                return DataRow(
+                  cells: widget.columns.map((col) {
+                    final cellContent = row[col.key];
+                    final Widget cellWidget = cellContent is Widget
+                        ? cellContent
+                        : Text(
+                            cellContent?.toString() ?? '',
+                            style: CTypography.bodyCompact01,
+                          );
+
+                    return DataCell(
+                      Align(alignment: Alignment.centerLeft, child: cellWidget),
+                    );
+                  }).toList(),
+                );
+              }).toList(),
+            ),
+          ),
         ),
       ),
     );
