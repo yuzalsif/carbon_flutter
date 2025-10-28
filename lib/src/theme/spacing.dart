@@ -28,6 +28,8 @@ class CSpacing {
   /// 32px. For significant separation between layout sections. (Carbon token: `spacing-07`)
   static const double xLarge = 32.0;
 
+  static const double xxLarge = 40.0;
+
   /// 48px. For page-level margins and very large gaps. (Carbon token: `spacing-09`)
-  static const double xxLarge = 48.0;
+  static const double xxxLarge = 48.0;
 }

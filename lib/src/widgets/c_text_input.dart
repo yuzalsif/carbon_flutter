@@ -26,6 +26,7 @@ class CTextInput extends StatelessWidget {
     this.onBackground = false,
     this.onTap,
     this.validator,
+    this.additionalInfoWidget,
   });
 
   /// The text that is displayed above the input field.
@@ -80,6 +81,9 @@ class CTextInput extends StatelessWidget {
   /// Providing this function will cause the widget to use a [TextFormField]
   /// internally instead of a [TextField].
   final FormFieldValidator<String>? validator;
+
+  /// An optional widget to display at the top right corner of the [TextField]
+  final Widget? additionalInfoWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -154,13 +158,28 @@ class CTextInput extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (labelText.isNotEmpty) ...[
+          if (labelText.isNotEmpty && additionalInfoWidget == null) ...[
             Text(
               labelText,
               style: CTypography.label01.copyWith(color: CColors.textSecondary),
             ),
             const SizedBox(height: CSpacing.small),
           ],
+          if (additionalInfoWidget != null)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                if (labelText.isEmpty) SizedBox(),
+                if (labelText.isNotEmpty)
+                  Text(
+                    labelText,
+                    style: CTypography.label01.copyWith(
+                      color: CColors.textSecondary,
+                    ),
+                  ),
+                additionalInfoWidget!,
+              ],
+            ),
           textField,
           if (bottomText != null && bottomText.isNotEmpty)
             Padding(
