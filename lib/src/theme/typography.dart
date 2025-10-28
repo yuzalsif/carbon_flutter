@@ -4,7 +4,7 @@ import 'package:flutter/painting.dart';
 ///
 /// This is a non-instantiable class that provides static [TextStyle] constants
 /// that align with the IBM Carbon Design System's typographic scale. It uses
-/// the 'IBMPlexSans' font family.
+/// the 'IBMPlexMono' font family.
 ///
 /// NOTE: These text styles DO NOT define a color. The color is applied
 /// by the CTheme (light or dark) to ensure proper contrast.
@@ -13,7 +13,7 @@ class CTypography {
   CTypography._();
 
   /// The official font family of the Carbon Design System.
-  static const String fontFamily = 'IBMPlexSans';
+  static const String fontFamily = 'IBMPlexMono';
 
   // --- Productive Type Scale ---
 
