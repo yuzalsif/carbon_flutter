@@ -186,7 +186,7 @@ class _CButtonState extends State<CButton> {
 
     final bool hasIcon = widget.icon != null;
     final MainAxisAlignment alignment = hasIcon
-        ? MainAxisAlignment.center
+        ? MainAxisAlignment.spaceBetween
         : MainAxisAlignment.start;
 
     return MouseRegion(
@@ -212,17 +212,6 @@ class _CButtonState extends State<CButton> {
           child: Row(
             mainAxisAlignment: alignment,
             children: [
-              if (widget.icon != null)
-                IconTheme(
-                  data: IconThemeData(
-                    color: foregroundColor,
-                    size: iconSize,
-                  ),
-                  child: widget.icon!,
-                ),
-              if (widget.icon != null &&
-                  (widget.label != null && widget.label != ''))
-                const SizedBox(width: CSpacing.small),
               if (widget.label != null && widget.label != '')
                 Text(
                   widget.label!,
@@ -230,6 +219,14 @@ class _CButtonState extends State<CButton> {
                     color: foregroundColor,
                     fontWeight: FontWeight.normal,
                   ),
+                ),
+              if (widget.icon != null &&
+                  (widget.label != null && widget.label != ''))
+                const SizedBox(width: CSpacing.small),
+              if (widget.icon != null)
+                IconTheme(
+                  data: IconThemeData(color: foregroundColor, size: iconSize),
+                  child: widget.icon!,
                 ),
             ],
           ),
