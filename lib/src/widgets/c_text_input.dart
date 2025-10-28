@@ -10,7 +10,7 @@ import 'package:carbon_flutter/carbon_flutter.dart';
 class CTextInput extends StatelessWidget {
   const CTextInput({
     super.key,
-    required this.labelText,
+    this.labelText,
     this.controller,
     this.hintText,
     this.helperText,
@@ -30,7 +30,7 @@ class CTextInput extends StatelessWidget {
   });
 
   /// The text that is displayed above the input field.
-  final String labelText;
+  final String? labelText;
 
   /// Controls the text being edited.
   final TextEditingController? controller;
@@ -158,9 +158,9 @@ class CTextInput extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (labelText.isNotEmpty && additionalInfoWidget == null) ...[
+          if ((labelText ?? "").isNotEmpty && additionalInfoWidget == null) ...[
             Text(
-              labelText,
+              labelText ?? "",
               style: CTypography.label01.copyWith(color: CColors.textSecondary),
             ),
             const SizedBox(height: CSpacing.small),
@@ -169,10 +169,10 @@ class CTextInput extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                if (labelText.isEmpty) SizedBox(),
-                if (labelText.isNotEmpty)
+                if ((labelText ?? "").isEmpty) SizedBox(),
+                if ((labelText ?? "").isNotEmpty)
                   Text(
-                    labelText,
+                    labelText ?? "",
                     style: CTypography.label01.copyWith(
                       color: CColors.textSecondary,
                     ),
