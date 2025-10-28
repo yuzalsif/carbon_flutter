@@ -25,6 +25,7 @@ class CTextInput extends StatelessWidget {
     this.enabled = true,
     this.onBackground = false,
     this.onTap,
+    this.validator,
   });
 
   /// The text that is displayed above the input field.
@@ -73,6 +74,13 @@ class CTextInput extends StatelessWidget {
 
   final VoidCallback? onTap;
 
+  /// An optional method that validates an input. Returns an error string to
+  /// display if the input is invalid, or null otherwise.
+  ///
+  /// Providing this function will cause the widget to use a [TextFormField]
+  /// internally instead of a [TextField].
+  final FormFieldValidator<String>? validator;
+
   @override
   Widget build(BuildContext context) {
     final bool hasError = errorText != null && errorText!.isNotEmpty;
@@ -96,6 +104,50 @@ class CTextInput extends StatelessWidget {
           : CColors.backgroundComponent;
     }
 
+    final Widget textField;
+    if (validator != null) {
+      textField = TextFormField(
+        controller: controller,
+        onChanged: enabled ? onChanged : null,
+        onFieldSubmitted: enabled ? onSubmitted : null,
+        obscureText: obscureText,
+        enabled: enabled,
+        onTap: onTap,
+        style: CTypography.bodyCompact01,
+        keyboardType: keyboardType,
+        inputFormatters: inputFormatters,
+        decoration: InputDecoration(
+          fillColor: fillColor,
+          hintText: hintText,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+          errorText: hasError ? "" : null,
+          errorStyle: const TextStyle(height: 0),
+        ),
+        validator: validator,
+      );
+    } else {
+      textField = TextField(
+        controller: controller,
+        onChanged: enabled ? onChanged : null,
+        onSubmitted: enabled ? onSubmitted : null,
+        obscureText: obscureText,
+        enabled: enabled,
+        onTap: onTap,
+        style: CTypography.bodyCompact01,
+        keyboardType: keyboardType,
+        inputFormatters: inputFormatters,
+        decoration: InputDecoration(
+          fillColor: fillColor,
+          hintText: hintText,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+          errorText: hasError ? "" : null,
+          errorStyle: const TextStyle(height: 0),
+        ),
+      );
+    }
+
     return Opacity(
       opacity: enabled ? 1.0 : 0.5,
       child: Column(
@@ -109,25 +161,7 @@ class CTextInput extends StatelessWidget {
             ),
             const SizedBox(height: CSpacing.small),
           ],
-          TextField(
-            controller: controller,
-            onChanged: enabled ? onChanged : null,
-            onSubmitted: enabled ? onSubmitted : null,
-            obscureText: obscureText,
-            enabled: enabled,
-            onTap: onTap,
-            style: CTypography.bodyCompact01,
-            keyboardType: keyboardType,
-            inputFormatters: inputFormatters,
-            decoration: InputDecoration(
-              fillColor: fillColor,
-              hintText: hintText,
-              prefixIcon: prefixIcon,
-              suffixIcon: suffixIcon,
-              errorText: hasError ? "" : null,
-              errorStyle: const TextStyle(height: 0),
-            ),
-          ),
+          textField,
           if (bottomText != null && bottomText.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: CSpacing.small),
