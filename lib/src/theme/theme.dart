@@ -43,6 +43,13 @@ class CTheme {
         ? CColors.textDisabledInverse
         : CColors.textDisabled;
 
+    final Color appBarBackgroundColor = isDark
+        ? CColors.backgroundComponentInverse
+        : CColors.backgroundComponentInverse;
+    final Color appBarForegroundColor = isDark
+        ? CColors.textPrimaryInverse
+        : CColors.textPrimaryInverse;
+
     // Build the base TextTheme using GoogleFonts and apply colors.
     final textTheme = GoogleFonts.ibmPlexSansTextTheme(
       TextTheme(
@@ -83,13 +90,9 @@ class CTheme {
       ),
 
       appBarTheme: AppBarTheme(
-        // The AppBar background color should match the component background color.
-        backgroundColor: componentBackgroundColor,
-        // The color for title text and icons in the AppBar.
-        foregroundColor: primaryTextColor,
-        // Carbon headers have no shadow.
+        backgroundColor: appBarBackgroundColor,
+        foregroundColor: appBarForegroundColor,
         elevation: 0,
-        // Ensure system UI (like status bar icons) matches the theme.
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarBrightness: isDark ? Brightness.dark : Brightness.light,
           statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,

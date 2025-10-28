@@ -57,15 +57,6 @@ class CAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: actions,
       centerTitle: false, // Carbon titles are typically left-aligned.
       automaticallyImplyLeading: false, // We handle it manually.
-      // Add a subtle bottom border to separate the AppBar from the content.
-      bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(1.0),
-        child: Divider(
-          height: 1,
-          thickness: 1,
-          color: Theme.of(context).dividerTheme.color,
-        ),
-      ),
     );
   }
 
